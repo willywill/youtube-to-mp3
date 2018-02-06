@@ -1,0 +1,32 @@
+{
+  "name": "youtube-to-mp3",
+  "version": "1.0.0",
+  "description": "A simple desktop app to convert and save your favorite YouTube music to your PC.",
+  "main": "app.js",
+  "scripts": {
+    "dev": "nodemon app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/willywill/youtube-to-mp3.git"
+  },
+  "keywords": [
+    "YouTube",
+    "MP3",
+    "Download"
+  ],
+  "author": "Will Germany",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/willywill/youtube-to-mp3/issues"
+  },
+  "homepage": "https://github.com/willywill/youtube-to-mp3#readme",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "cors": "^2.8.4",
+    "dotenv": "^5.0.0",
+    "express": "^4.16.2",
+    "youtube-mp3-downloader": "^0.5.2"
+  }
+}
