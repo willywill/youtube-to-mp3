@@ -14,10 +14,10 @@ module.exports = {
     try {
       const { youtubeLink, downloadPath } = req.body
       const videoID = await helpers.getVideoID(youtubeLink)
-      const options = { path: downloadPath }
+      const downloadOptions = { path: downloadPath }
       const youtubeMP3 = await helpers.initDownloader(
         YouTubeDownloader,
-        options
+        downloadOptions
       )
       const downloadedMP3Data = await helpers.downloadAsync(youtubeMP3, videoID)
       res.send(JSON.stringify(downloadedMP3Data, null, 2))

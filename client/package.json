@@ -1,0 +1,27 @@
+{
+  "name": "youtube-mp3-client",
+  "homepage": "./",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "dotenv": "^4.0.0",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-scripts": "1.1.0"
+  },
+  "main": "main.js",
+  "scripts": {
+    "start": "concurrently \"npm run electron\" \"npm run react\"",
+    "react": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject",
+    "electron": "electron .",
+    "electron-dev": "react-scripts start",
+    "electron-prod": "react-scripts build && electron ."
+  },
+  "devDependencies": {
+    "concurrently": "^3.5.1",
+    "electron": "^1.7.12"
+  }
+}
