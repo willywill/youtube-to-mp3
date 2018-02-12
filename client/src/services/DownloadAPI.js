@@ -1,6 +1,6 @@
 import axios from 'axios'
 
 export default () => {
-  const baseURL = process.env.DOWNLOAD_SERVICE_URL
+  const baseURL = 'http://localhost:3600'
   return axios.create({ baseURL })
 }
