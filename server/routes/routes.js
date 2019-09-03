@@ -1,7 +1,4 @@
-'use strict'
 
-const DownloadController = require('../controllers/DownloadController')
+import DownloadController from '../controllers/DownloadController';
 
-module.exports = app => {
-  app.post('/api/download', DownloadController.download)
-}
+export default (app) => app.post('/api/download', DownloadController.download);

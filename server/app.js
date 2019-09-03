@@ -1,19 +1,23 @@
-'use strict'
+import express from 'express';
+import bodyParser from 'body-parser';
+import cors from 'cors';
+import dotenv from 'dotenv';
+import router from './routes/routes';
 
-const express = require('express')
-const bodyParser = require('body-parser')
-const cors = require('cors')
-const dotenv = require('dotenv').config()
-const router = require('./routes/routes')
+dotenv.config();
 
-const app = express()
-const port = process.env.PORT || 3600
+const app = express();
+const port = process.env.PORT || 3600;
 
-app.use(bodyParser.json())
-app.use(cors())
+app.use(bodyParser.json());
+app.use(cors());
 
-router(app)
+router(app);
 
-app.listen(port, () => {
-  console.log(`Sever successfully started on port ${port}.`)
-})
+app.listen(port, (error) => {
+  if (error) {
+    throw error;
+  }
+
+  console.log(`> Server successfully started on port ${port}.`);
+});
