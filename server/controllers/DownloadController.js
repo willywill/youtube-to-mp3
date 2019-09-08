@@ -40,7 +40,7 @@ const download = async (req, res) => {
 
     const downloadedMP3Data = await downloadVideoAsync(youtubeMP3, videoID);
 
-    res.status(200).send({ data: downloadedMP3Data });
+    res.status(200).send({ data: { ...downloadedMP3Data, downloadPath } });
   } catch (error) {
     res.status(500).send({ error: error.message });
   }

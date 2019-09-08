@@ -27,7 +27,13 @@ if (!gotTheLock) {
 
 function createWindow() {
   // Create the browser window.
-  mainWindow = new BrowserWindow({ width: 800, height: 600 });
+  mainWindow = new BrowserWindow({
+    width: 800, 
+    height: 600,
+    webPreferences: {
+      nodeIntegration: true,
+    },
+  });
 
   const startUrl = isDev
     ? 'http://localhost:3000'
@@ -41,6 +47,8 @@ function createWindow() {
 
   // Open the DevTools.
   mainWindow.webContents.openDevTools();
+
+  mainWindow.setMenu(null);
 
   // Emitted when the window is closed.
   mainWindow.on('closed', function() {
