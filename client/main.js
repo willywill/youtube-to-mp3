@@ -6,10 +6,9 @@ const dotenv = require('dotenv').config()
 let browserWindow = undefined
 
 function createWindow() {
-  browserWindow = new BrowserWindow({ width: 800, height: 600 })
+  browserWindow = new BrowserWindow({ width: 800, height: 600, webPreferences: { nodeIntegration: true } })
 
-  const displayContent =
-    process.env.ELECTRON_DEV_URL ||
+  const displayContent = process.env.ELECTRON_DEV_URL ||
     url.format({
       pathname: path.join(__dirname, 'build/index.html'),
       protocol: 'file:',

@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import TextField from 'material-ui/TextField'
 
 class LinkInput extends Component {
   constructor() {
@@ -14,7 +13,6 @@ class LinkInput extends Component {
   }
 
   render() {
-    //const { classes } = this.props
     const textField = { width: '50vw', height: '8vh', color: '#282828', border: '1px solid #aaaaaa', borderRadius: 2 }
 
     return (
