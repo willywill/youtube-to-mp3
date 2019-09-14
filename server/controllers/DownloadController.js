@@ -11,6 +11,10 @@ import { getVideoID, initDownloader } from '../handlers/common';
 const downloadVideoAsync = async (YouTubeToMP3, videoID) => new Promise((resolve, reject) => {
   YouTubeToMP3.download(videoID);
 
+  YouTubeToMP3.on('error', error => {
+    reject(error);
+  });
+
   YouTubeToMP3.on('finished', (error, data) => {
     if (error) {
       reject(error);
@@ -42,7 +46,7 @@ const download = async (req, res) => {
 
     res.status(200).send({ data: { ...downloadedMP3Data, downloadPath } });
   } catch (error) {
-    res.status(500).send({ error: error.message });
+    res.status(400).send({ error });
   }
 };
 

@@ -14,6 +14,7 @@ const Step = styled.li`
   text-align: center;
   color: ${props => props.active ? 'red' : 'black'};
   font-size: 10px;
+  text-transform: uppercase;
   padding-left: 65px;
   padding-right: 65px;
 
@@ -23,12 +24,13 @@ const Step = styled.li`
     width: 30px;
     height: 30px;
     line-height: 30px;
-    border: 2px solid ${props => props.active ? 'red' : 'black'};
+    /* border: 2px solid ${props => props.active ? 'red' : 'black'}; */
     display: block;
     text-align: center;
     margin: 0 auto 10px auto;
     border-radius: 50%;
-    background-color: white;
+    background-color: ${props => props.active ? 'red' : 'black'};
+    color: white;
   }
 
   &::after {
@@ -36,7 +38,8 @@ const Step = styled.li`
     position: absolute;
     width: 100%;
     height: 1px;
-    background-color: ${props => props.activeIndex ? 'red' : 'black'};
+    background-color: black;
+    /* background-color: ${props => props.activeIndex ? 'red' : 'black'}; */
     top: 15px;
     left: -50%;
     z-index: -1;
@@ -53,21 +56,14 @@ const Step = styled.li`
  * @param {React.Props} steps - Array of steps in a flow
  */
 class Steps extends React.PureComponent {
-  constructor(props) {
-    super(props);
-
-    this.state = { activeStepIndex: 0 };
-  }
-
   render() {
-    const { steps } = this.props;
-    const { activeStepIndex } = this.state;
+    const { steps, activeStep } = this.props;
 
     return (
       <Flex width="100%" style={{ zIndex: 0 }}>
         <StepProgress>
           {steps && steps.map((step, index) => (
-            <Step key={step} active={activeStepIndex === index} activeIndex={(activeStepIndex + 1) === index}>
+            <Step key={step} active={(activeStep - 1) === index}>
               {step}
             </Step>
           ))}

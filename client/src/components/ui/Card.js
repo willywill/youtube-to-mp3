@@ -3,9 +3,8 @@ import styled from 'styled-components';
 import { Flex } from 'reflexbox/styled-components';
 
 const CardContainer = styled(Flex)`
-  border: 1px solid red;
-  padding: 25px;
-  box-shadow: 10px 10px 3px 0px #cccccc;
+  border: 1px solid #ddd;
+  padding: 25px 40px;
   border-radius: 5px;
   background-color: white;
 `;
