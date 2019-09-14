@@ -1,20 +1,32 @@
 import React from 'react';
 import axios from 'axios';
+import { Flex, Box } from 'reflexbox/styled-components';
 import styled from 'styled-components';
+import waves from './waves.svg';
+import Logo from './components/ui/Logo';
+import LoadingIndicator from './components/ui/LoadingIndicator';
+import ErrorMessage from './components/ui/ErrorMessage';
+import Steps from './components/ui/Steps';
+import Card from './components/ui/Card';
+import Input from './components/ui/Input';
 
 const electron = window.require("electron");
 const dialog = electron.remote.dialog;
 const shell = electron.remote.shell;
 
 const TextLabel = styled.p`
-  color: white;
+  color: black;
   margin: 0px;
   font-size: ${props => props.small ? '12px' : 'inherit'};
 `;
 
 const Layout = styled.div`
-  background-color: #282c34;
+  background: url("${waves}") no-repeat;
+  background-size: 100%;
+  background-position: bottom;
+  background-color: white;
   min-height: 100vh;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -25,7 +37,7 @@ const Layout = styled.div`
 `;
 
 const Button = styled.button`
-  border: 0;
+  border: 1px solid black;
   outline: none;
   padding: 10px 25px;
   border-radius: 3px;
@@ -36,52 +48,14 @@ const Button = styled.button`
   margin-top: ${props => props.mt || '10px'};
 `;
 
-const Input = styled.input`
-  outline: 0;
-  border: 1px solid red;
-  margin: 30px;
-  padding: 10px 20px;
-  border-radius: 3px;
-  width: 50%;
-`;
-
-const Error = styled(TextLabel)`
-  margin-top: 10px;
-`;
-
-const LoadingIndicator = styled.svg`
-  animation: rotate 2s linear infinite;
-  margin: -25px 0 0 -25px;
-  width: 50px;
-  height: 50px;
-  margin: 10px 0px;
-  
-  & .path {
-    stroke: white;
-    stroke-linecap: round;
-    animation: dash 1.5s ease-in-out infinite;
-  }
-  
-  @keyframes rotate {
-    100% {
-      transform: rotate(360deg);
-    }
-  }
-  @keyframes dash {
-    0% {
-      stroke-dasharray: 1, 150;
-      stroke-dashoffset: 0;
-    }
-    50% {
-      stroke-dasharray: 90, 150;
-      stroke-dashoffset: -35;
-    }
-    100% {
-      stroke-dasharray: 90, 150;
-      stroke-dashoffset: -124;
-    }
-  }
-`;
+// const Input = styled.input`
+//   outline: 0;
+//   border: 1px solid black;
+//   margin: 30px;
+//   padding: 10px 20px;
+//   border-radius: 3px;
+//   width: 50%;
+// `;
 
 const BASE_URL = 'http://localhost:3600';
 
@@ -148,58 +122,63 @@ class App extends React.PureComponent {
     }
   }
 
+  renderHeader = () => (
+    <Flex width={1} justifyContent="flex-start" alignItems="flex-start">
+      <Box ml={3} mt={3} width="100px">
+        <Logo />
+      </Box>
+    </Flex>
+  )
+
+  renderSteps = () => (
+    <Flex>
+      <Steps steps={['URL', 'Location', 'Download']} />
+    </Flex>
+  );
+
   render() {
     const { data, error, loading, downloadOptions } = this.state;
 
     return (
       <div>
         <Layout>
-          <TextLabel>
-            YouTube Video URL
-          </TextLabel>
-          <Input type="text" onChange={this.handleLink} />
-          <TextLabel>
-            Save MP3 Location
-          </TextLabel>
-          <Button color="white" textColor="black" onClick={this.handleDialog}>
-            Browse
-          </Button>
-          {downloadOptions.downloadPath && (
-            <TextLabel small>
-              📍 Location: {downloadOptions.downloadPath}
+          {this.renderHeader()}
+          {this.renderSteps()}
+          <Card>
+            <Input type="text" label="YouTube Video URL" onChange={this.handleLink} placeholder="Enter video URL here" />
+            <TextLabel>
+              Save MP3 Location
             </TextLabel>
-          )}
-          {error && (
-            <Error>
-              ⚠️ ERROR: {error.message}
-            </Error>
-          )}
-          {loading && (
-            <LoadingIndicator viewBox="0 0 50 50">
-              <circle
-                className="path"
-                cx="25"
-                cy="25"
-                r="20"
-                fill="none"
-                strokeWidth="4"
-              />
-            </LoadingIndicator>
-          )}
-          <Button mt="30px" onClick={this.handleDownload} color={loading ? 'grey' : ''}>
-            {loading ? 'Loading' : 'Download'}
-          </Button>
-          {data && (
-            <React.Fragment>
-              <div>
-                Complete!
-                <Button onClick={this.handleOpenFile}>Open MP3 Location</Button>
-              </div>
-              <div style={{ margin: '20px' }}>
-                {data.thumbnail && <img width="350px" height="200px" src={data.thumbnail} alt="thumbnail" />}
-              </div>
-            </React.Fragment>
-          )}
+            <Button color="white" textColor="black" onClick={this.handleDialog}>
+              Browse
+            </Button>
+            {downloadOptions.downloadPath && (
+              <TextLabel small>
+                📍 Location: {downloadOptions.downloadPath}
+              </TextLabel>
+            )}
+            {error && <ErrorMessage error={error.message} />}
+            {loading && (
+              <Flex justifyContent="center">
+                <LoadingIndicator color="red" />
+              </Flex>
+            )}
+            <Button mt="30px" onClick={this.handleDownload} color={loading ? 'grey' : ''}>
+              {loading ? 'Loading' : 'Download'}
+            </Button>
+            {data && (
+              <React.Fragment>
+                <div>
+                  Complete!
+                  <Button onClick={this.handleOpenFile}>Open MP3 Location</Button>
+                </div>
+                <div style={{ margin: '20px' }}>
+                  {data.thumbnail && <img width="350px" height="200px" src={data.thumbnail} alt="thumbnail" />}
+                </div>
+              </React.Fragment>
+            )}
+          </Card>
+          {/* <img width="100%" src={waves} className="App-bg" alt="waves" /> */}
         </Layout>
       </div>
     );
