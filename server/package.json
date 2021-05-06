@@ -28,7 +28,7 @@
     "cors": "^2.8.4",
     "dotenv": "^5.0.0",
     "express": "^4.16.2",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.21",
     "youtube-mp3-downloader": "^0.6.3"
   },
   "devDependencies": {
